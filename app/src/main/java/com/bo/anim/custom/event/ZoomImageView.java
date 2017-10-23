@@ -488,6 +488,7 @@ public class ZoomImageView extends ImageView implements
                 mScaleMatrix.postScale(scale, scale, x, y);
                 checkBorderAndCenterWhenScale();
                 setImageMatrix(mScaleMatrix);
+
                 System.out.println("-----"+getScale()+"--"+scale);
                 //执行完成后重置
                 mIsAutoScaling = false;
