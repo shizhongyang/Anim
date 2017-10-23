@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- AppBarLayout，作为CoordinatorLayout的子类 android:fitsSystemWindows="true"
+
+        scroll: 所有想滚动出屏幕的view都需要设置这个flag- 没有设置这个flag的view将被固定在屏幕顶部。
+        enterAlways: 这个flag让任意向下的滚动都会导致该view变为可见，启用”快速返回”模式。
+        enterAlwaysCollapsed: 当你的视图已经设置minHeight属性又使用此标志时，你的视图只会在最小高度处进入，只有当滚动视图到达顶部时才扩大到完整高度。
+        exitUntilCollapsed: 在滚动过程中，只有当视图折叠到最小高度的时候，它才退出屏幕。
+
+        注意AppBarLayout的兄弟节点（或兄弟节点的子view）一定要是可以滚动的View/ViewGroup，
+        如：NestedScrollView，RecycleView；
+     -->
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:title="Hello World"
+            android:gravity="bottom"
+            android:minHeight="?android:attr/actionBarSize"
+            android:titleTextColor="@color/colorAccent"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <!-- Your scrolling content -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:text="日本疑似被绑架记者现身网络中国新闻网 18:55"
+            android:layout_height="wrap_content"/>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

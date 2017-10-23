@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bo.anim">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".ui.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.InterpolatorActivity" />
+        <activity android:name=".ui.OfObjectActivity" />
+        <activity
+            android:name=".ui.ObjectAnimatorActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".ui.ShareElementActivity" />
+        <activity android:name=".ui.AnimatorSetActivity" />
+        <activity android:name=".ui.ImageCacheActivity" />
+        <activity android:name=".ui.customview.CustomViewActivity" />
+        <activity android:name=".ui.customview.CustomContainsActivity" />
+        <activity android:name=".ui.customview.CustomReaBookActivity" />
+        <activity android:name=".ui.customview.CustomDoughnutProgressActivity" />
+        <activity android:name=".ui.customview.CustomArcActivity" />
+        <activity android:name=".ui.customview.CustomCameraAndMatrixActivity" />
+        <activity android:name=".ui.customviewgroup.FirstCustomViewGroupActivity" />
+        <activity android:name=".ui.customviewgroup.FlowLayoutActivity" />
+        <activity android:name=".ui.event.EventActivity" />
+        <activity android:name=".ui.event.TestEvent1Activity" />
+        <activity android:name=".ui.event.ZoomImageActivity" />
+        <activity android:name=".ui.matrial.AppLayoutActivity"></activity>
+    </application>
+
+</manifest>

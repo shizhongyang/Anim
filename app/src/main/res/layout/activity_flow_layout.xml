@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_flow_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bo.anim.ui.customviewgroup.FlowLayoutActivity">
+    <com.bo.anim.customviewgroup.FlowLayoutX
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Breath And Life"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Fallen"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Brand-new World"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="6dp"
+            android:text="Save you from anything"
+            android:textSize="13sp" />
+    </com.bo.anim.customviewgroup.FlowLayoutX>
+
+</RelativeLayout>
