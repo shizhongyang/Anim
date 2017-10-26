@@ -34,6 +34,9 @@ public class CustomContainsActivity extends AppCompatActivity {
             case R.id.btn5:
                 intent.setClass(this,CustomCameraAndMatrixActivity.class);
                 break;
+            case R.id.btn6:
+                intent.setClass(this,MiClockActivity.class);
+                break;
         }
         startActivity(intent);
     }

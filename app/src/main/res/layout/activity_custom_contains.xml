@@ -45,6 +45,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="CameraAndMatrix" />
+        <Button
+            android:id="@+id/btn6"
+            android:onClick="click"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MiClock" />
+        <Button
+            android:id="@+id/btn7"
+            android:onClick="click"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MiClock" />
     </LinearLayout>
 
 </ScrollView>

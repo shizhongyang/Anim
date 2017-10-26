@@ -135,6 +135,7 @@ public class MiClockView extends View {
         mHourHandPaint.setStyle(Paint.Style.FILL);
         mHourHandPaint.setColor(mDarkColor);
 
+
         mMinuteHandPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mMinuteHandPaint.setColor(mLightColor);
 

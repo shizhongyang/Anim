@@ -47,17 +47,16 @@ public class CameraAndMatrixView extends View {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.parseColor("#ff4081"));
 
-
         //将要展示的图片解析成bitmap
         after = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.ic_launcher);
+                R.mipmap.google_map);
         //得到一个新的bitmap，它的大小和要展示的图片一样
         bitmap = Bitmap.createBitmap(after.getWidth(), after.getHeight(),
                 after.getConfig());
 
         //canvas = new Canvas(bitmap);
         matrix1 = new Matrix();
-        matrix1.setScale(5f, 5,50,50);
+        matrix1.setScale(5f, 5, 50, 50);
 
     }
 
@@ -89,24 +88,54 @@ public class CameraAndMatrixView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        int bitmapWidth = after.getWidth();
+        int bitmapHeight = after.getHeight();
+        int centerX = getWidth() / 2;
+        int centerY = getHeight() / 2;
+        int x = centerX - bitmapWidth / 2;
+        int y = centerY - bitmapHeight / 2;
+        //canvas.drawCircle(60, 60, 60, paint);
 
-        canvas.drawCircle(60, 60, 60, paint);
+        //paint.setAlpha(100);
 
-        paint.setAlpha(100);
-
-        matrix.reset();
+        /*matrix.reset();
         camera.save();
         camera.translate(10,-100,-180);
         camera.getMatrix(matrix);
         matrix.setScale(2,2);
         camera.restore();
-        canvas.concat(matrix);
+        canvas.concat(matrix);*/
 
-        canvas.drawCircle(60, 60, 60, paint);
-
+        //canvas.drawCircle(60, 60, 60, paint);
 
         // 把要展示的图片画在canvas上，此时bitmap上就有了要展示的图片
-        canvas.drawBitmap(after, matrix1, paint);
+        //canvas.drawBitmap(after, matrix1, paint);
+
+        canvas.save();
+        camera.save();
+        canvas.translate(getWidth() / 2, getHeight() / 2); //移动到中心
+        camera.rotateX(-10);
+        camera.rotateY(-10);
+        camera.applyToCanvas(canvas);
+        camera.restore();
+        canvas.translate(-getWidth() / 2, -getHeight() / 2);
+        canvas.drawBitmap(after,x,y,paint);
+        canvas.restore();
+
+
+        canvas.save();
+        camera.save();
+        camera.rotateX(20);
+        camera.rotateY(20);
+        camera.getMatrix(matrix);
+        camera.restore();
+
+        matrix.preTranslate(-getWidth() / 2, -getHeight() / 2); //前乘在旋转之前，移动到中心的位置
+        matrix.postTranslate(getWidth() / 2, getHeight() / 2);  //后乘 旋转以后，移动到远点
+
+        canvas.concat(matrix);
+        canvas.drawBitmap(after,x,y,paint);
+        canvas.restore();
 
     }
 }

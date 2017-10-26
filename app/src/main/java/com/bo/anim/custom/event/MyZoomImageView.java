@@ -203,8 +203,6 @@ public class MyZoomImageView extends ImageView implements
         int pointerCount = event.getPointerCount();
         for (int i = 0; i < pointerCount; i++) {
             x += event.getX(i);
-
-
             y += event.getY(i);
         }
 
@@ -289,10 +287,10 @@ public class MyZoomImageView extends ImageView implements
         mScaleMatrix.postTranslate(deltaX, deltaY);//处理偏移量
     }
 
+
     private boolean isMoveAction(float dx, float dy) {
         return Math.sqrt(dx * dx + dy * dy) > mTouchSlop;
     }
-
 
     //-----------------------------------------------------------------------------------------
     @Override
