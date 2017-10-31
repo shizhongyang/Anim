@@ -7,17 +7,17 @@
     android:orientation="vertical"
     tools:context="com.bo.anim.ui.customview.CustomCameraAndMatrixActivity">
 
-    <com.bo.anim.custom.CameraTestView
+    <com.bo.anim.custom.camerawithmatrix.CameraTestView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.bo.anim.custom.CameraAndMatrixView
+    <com.bo.anim.custom.camerawithmatrix.CameraAndMatrixView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.bo.anim.custom.MatrixTestView
+    <com.bo.anim.custom.camerawithmatrix.MatrixTestView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

@@ -15,7 +15,7 @@ import com.bo.anim.R;
 import com.bo.anim.ui.customview.CustomContainsActivity;
 import com.bo.anim.ui.customviewgroup.FirstCustomViewGroupActivity;
 import com.bo.anim.ui.event.EventActivity;
-import com.bo.anim.ui.matrial.AppLayoutActivity;
+import com.bo.anim.ui.matrial.MDContainerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         img = (ImageView) findViewById(R.id.img);
+        //View.inflate()
 
         tv = (TextView) findViewById(R.id.tv1);
       //  activity = this;
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn9).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,AppLayoutActivity.class));
+                startActivity(new Intent(MainActivity.this,MDContainerActivity.class));
             }
 
         });

@@ -1,4 +1,4 @@
-package com.bo.anim.custom;
+package com.bo.anim.custom.camerawithmatrix;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -74,17 +74,17 @@ public class MatrixTestView extends View {
 
         canvas.save();
         canvas.translate((getWidth()-bitmap.getWidth())/2,(getHeight()-bitmap.getHeight())/2);
-        canvas.drawBitmap(bitmap,matrix,null);
+        canvas.drawBitmap(bitmap,matrix,paint);
         canvas.restore();
 
         canvas.save();
         canvas.translate((getWidth()-bitmap.getWidth())/2,(getHeight()-bitmap.getHeight())/2);
-        canvas.drawBitmap(bitmap,matrix1,null);
+        canvas.drawBitmap(bitmap,matrix1,paint);
         canvas.restore();
 
         canvas.save();
         canvas.translate((getWidth()-bitmap.getWidth())/2,(getHeight()-bitmap.getHeight())/2);
-        canvas.drawBitmap(bitmap,matrix2,null);
+        canvas.drawBitmap(bitmap,matrix2,paint);
         canvas.restore();
     }
 }

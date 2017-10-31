@@ -1,4 +1,4 @@
-package com.bo.anim.custom;
+package com.bo.anim.custom.camerawithmatrix;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -19,22 +19,22 @@ import com.bo.anim.R;
  * Created by TT on 2017-10-25.
  */
 
-public class CameraView extends View {
+public class FlipCameraView extends View {
     private final Bitmap after;
     private final Camera camera;
     private final Paint paint;
     int degree;
     ObjectAnimator animator = ObjectAnimator.ofInt(this, "degree", 0, 270);
 
-    public CameraView(Context context) {
+    public FlipCameraView(Context context) {
         this(context, null);
     }
 
-    public CameraView(Context context, AttributeSet attrs) {
+    public FlipCameraView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CameraView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FlipCameraView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         //将要展示的图片解析成bitmap

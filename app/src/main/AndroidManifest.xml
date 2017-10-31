@@ -38,7 +38,10 @@
         <activity android:name=".ui.event.TestEvent1Activity" />
         <activity android:name=".ui.event.ZoomImageActivity" />
         <activity android:name=".ui.matrial.AppLayoutActivity" />
-        <activity android:name=".ui.customview.MiClockActivity"></activity>
+        <activity android:name=".ui.customview.MiClockActivity" />
+        <activity android:name=".ui.matrial.RecyclerActivity" />
+        <activity android:name=".ui.matrial.StickyRecyclerActivity" />
+        <activity android:name=".ui.matrial.MDContainerActivity"></activity>
     </application>
 
 </manifest>
