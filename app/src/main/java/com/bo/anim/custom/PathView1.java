@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -64,5 +65,10 @@ public class PathView1 extends View {
         float start = 0;
         mPathMeasure.getSegment(start, stop, mDst, true);
         canvas.drawPath(mDst, mPaint);
+    }
+
+    @Override
+    public void invalidateDrawable(Drawable drawable) {
+        super.invalidateDrawable(drawable);
     }
 }

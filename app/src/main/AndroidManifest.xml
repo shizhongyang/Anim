@@ -41,7 +41,10 @@
         <activity android:name=".ui.customview.MiClockActivity" />
         <activity android:name=".ui.matrial.RecyclerActivity" />
         <activity android:name=".ui.matrial.StickyRecyclerActivity" />
-        <activity android:name=".ui.matrial.MDContainerActivity"></activity>
+        <activity android:name=".ui.matrial.MDContainerActivity" />
+        <activity android:name=".ui.matrial.RecyclerAddHeaderActivity" />
+        <activity android:name=".ui.matrial.AdvancedRecyclerActivity" />
+        <activity android:name=".ui.matrial.ItemTouchRecyclerActivity"></activity>
     </application>
 
 </manifest>

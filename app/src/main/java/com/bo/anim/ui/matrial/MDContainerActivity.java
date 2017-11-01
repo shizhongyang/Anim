@@ -29,10 +29,13 @@ public class MDContainerActivity extends AppCompatActivity {
                 intent.setClass(this,StickyRecyclerActivity.class);
                 break;
             case R.id.btn4:
+                intent.setClass(this,RecyclerAddHeaderActivity.class);
                 break;
             case R.id.btn5:
+                intent.setClass(this,AdvancedRecyclerActivity.class);
                 break;
             case R.id.btn6:
+                intent.setClass(this,ItemTouchRecyclerActivity.class);
                 break;
         }
         startActivity(intent);

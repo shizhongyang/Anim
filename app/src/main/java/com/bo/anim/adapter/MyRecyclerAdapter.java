@@ -42,7 +42,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
 
 	@Override
 	public void onBindViewHolder(MyViewHolder holder, final int position) {
-		//������
 		TextView tv = holder.tv;
 		tv.setText(list.get(position));
 		tv.setBackgroundColor(R.color.colorPrimary);
