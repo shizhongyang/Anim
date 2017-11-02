@@ -16,26 +16,32 @@ public class MDContainerActivity extends AppCompatActivity {
     }
 
 
-    public void click(View view){
+    public void click(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.btn1:
-                intent.setClass(this,AppLayoutActivity.class);
+                intent.setClass(this, AppBarLayoutActivity.class);
                 break;
             case R.id.btn2:
-                intent.setClass(this,RecyclerActivity.class);
+                intent.setClass(this, RecyclerActivity.class);
                 break;
             case R.id.btn3:
-                intent.setClass(this,StickyRecyclerActivity.class);
+                intent.setClass(this, StickyRecyclerActivity.class);
                 break;
             case R.id.btn4:
-                intent.setClass(this,RecyclerAddHeaderActivity.class);
+                intent.setClass(this, RecyclerAddHeaderActivity.class);
                 break;
             case R.id.btn5:
-                intent.setClass(this,AdvancedRecyclerActivity.class);
+                intent.setClass(this, AdvancedRecyclerActivity.class);
                 break;
             case R.id.btn6:
-                intent.setClass(this,ItemTouchRecyclerActivity.class);
+                intent.setClass(this, ItemTouchRecyclerActivity.class);
+                break;
+            case R.id.btn7:
+                intent.setClass(this, AppBarLayout_CollapsingActivity.class);
+                break;
+            case R.id.btn8:
+                intent.setClass(this, AppBarLayout_ViewpagerActivity.class);
                 break;
         }
         startActivity(intent);

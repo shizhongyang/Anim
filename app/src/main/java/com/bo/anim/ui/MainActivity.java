@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bo.anim.R;
 import com.bo.anim.ui.customview.CustomContainsActivity;
-import com.bo.anim.ui.customviewgroup.FirstCustomViewGroupActivity;
+import com.bo.anim.ui.customviewgroup.ViewGroupContainerActivity;
 import com.bo.anim.ui.event.EventActivity;
 import com.bo.anim.ui.matrial.MDContainerActivity;
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         tv = (TextView) findViewById(R.id.tv1);
       //  activity = this;
-
+        //tv.animate();
         findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn7).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,FirstCustomViewGroupActivity.class));
+                startActivity(new Intent(MainActivity.this,ViewGroupContainerActivity.class));
             }
 
         });

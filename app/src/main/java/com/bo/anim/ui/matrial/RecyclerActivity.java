@@ -1,23 +1,33 @@
 package com.bo.anim.ui.matrial;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bo.anim.R;
 import com.bo.anim.adapter.MyRecyclerAdapter;
 import com.bo.anim.md.recycler.DividerItemDecorationTest;
+import com.bo.anim.md.recycler.scroll.FABAction;
+import com.bo.anim.md.recycler.scroll.FABScrollListener;
 
 import java.util.ArrayList;
 
-public class RecyclerActivity extends AppCompatActivity {
+public class RecyclerActivity extends AppCompatActivity implements FABAction{
     private RecyclerView recylerview;
     private ArrayList<String> list;
     private MyRecyclerAdapter adapter;
+    private ImageButton ib;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +39,7 @@ public class RecyclerActivity extends AppCompatActivity {
             list.add("item" + i);
         }
         recylerview = (RecyclerView) findViewById(R.id.recycler);
+        ib = (ImageButton) findViewById(R.id.ib);
         adapter = new MyRecyclerAdapter(list);
 
         recylerview.setLayoutManager(new LinearLayoutManager(this,
@@ -49,5 +60,33 @@ public class RecyclerActivity extends AppCompatActivity {
         recylerview.addItemDecoration(new DividerItemDecorationTest(this,DividerItemDecoration.VERTICAL));
 
         recylerview.setItemAnimator(new DefaultItemAnimator());
+        recylerview.addOnScrollListener(new FABScrollListener(this));
+    }
+
+    public void show(View view){
+        //view 是锚点 向上找父容器CoordinateLayout 根布局不是CoordinateLayout FAB则会被Snackbar遮住
+        Snackbar.make(view,"Hello",Snackbar.LENGTH_SHORT).setAction("ok", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"adg",Toast.LENGTH_SHORT).show();
+            }
+        }).show();
+
+
+    }
+
+    @Override
+    public void onShow() {
+        ib.animate()
+                .translationY(0)
+                .setInterpolator(new AccelerateDecelerateInterpolator()).setDuration(300);
+    }
+
+    @Override
+    public void onHide() {
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams)ib.getLayoutParams();
+        ib.animate()
+                .translationY(ib.getHeight()+layoutParams.bottomMargin)
+                .setInterpolator(new AccelerateDecelerateInterpolator()).setDuration(300);
     }
 }

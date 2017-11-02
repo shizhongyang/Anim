@@ -3,11 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/parent"
     android:background="@color/white"
     android:layout_height="match_parent"
     tools:context="com.bo.anim.ui.matrial.RecyclerActivity">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:id="@+id/fab"
+            android:layout_marginBottom="20dp"
+            app:layout_behavior="com.bo.anim.md.recycler.scroll.FABBehavior"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="bottom|end"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <ImageButton
+        android:id="@+id/ib"
+        android:layout_width="wrap_content"
+        android:onClick="show"
+        android:src="@drawable/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="@+id/parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintLeft_toLeftOf="@+id/parent"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content" />
+
 </android.support.constraint.ConstraintLayout>

@@ -49,4 +49,18 @@
         app:layout_constraintTop_toBottomOf="@id/btn5"
         android:text="ItemTouch"
         android:id="@+id/btn6" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="click"
+        app:layout_constraintTop_toBottomOf="@id/btn6"
+        android:text="AppBarLayout_CollapsingActivity"
+        android:id="@+id/btn7" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="click"
+        app:layout_constraintTop_toBottomOf="@id/btn7"
+        android:text="AppBarLayout_ViewpagerActivity"
+        android:id="@+id/btn8" />
 </android.support.constraint.ConstraintLayout>
