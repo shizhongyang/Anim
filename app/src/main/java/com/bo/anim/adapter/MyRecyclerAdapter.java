@@ -46,6 +46,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
 		tv.setText(list.get(position));
 		tv.setBackgroundColor(R.color.colorPrimary);
 
+		//tv.setOnClickListener();
 		if(mOnItemClickListener!=null){
 			holder.itemView.setOnClickListener(new OnClickListener() {
 				

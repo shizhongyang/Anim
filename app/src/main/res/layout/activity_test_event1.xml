@@ -14,12 +14,16 @@
     <com.bo.anim.custom.event.MyViewGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.bo.anim.custom.event.MyButton
+        <com.bo.anim.custom.event.MyViewGroup1
             android:layout_width="match_parent"
-            android:text="Test"
-            android:id="@+id/btn1"
-            android:clickable="false"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <com.bo.anim.custom.event.MyButton
+                android:layout_width="match_parent"
+                android:text="Test"
+                android:id="@+id/btn1"
+                android:clickable="true"
+                android:layout_height="wrap_content" />
+        </com.bo.anim.custom.event.MyViewGroup1>
     </com.bo.anim.custom.event.MyViewGroup>
     <com.bo.anim.custom.event.MultiFingerTestView
         android:layout_width="match_parent"

@@ -2,8 +2,6 @@ package com.bo.anim.ui.event;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.bo.anim.R;
 import com.bo.anim.custom.event.MyButton;
@@ -19,16 +17,16 @@ public class TestEvent1Activity extends AppCompatActivity {
 
         btn1 = (MyButton) findViewById(R.id.btn1);
 
-        btn1.setOnTouchListener(new View.OnTouchListener() {
+    /*    btn1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 System.out.println("----+onTouch被调用");
                 //return true; 返回true将会拦截 onTouchEvent  相当于事件被消费
                 return true;
             }
-        });
+        });*/
 
-
+/*
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +39,6 @@ public class TestEvent1Activity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 return true;
             }
-        });
+        });*/
     }
 }
