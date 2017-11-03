@@ -15,9 +15,12 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 public class FABBehavior extends FloatingActionButton.Behavior {
     private boolean visible = true;//是否可见
 
+
     public FABBehavior() {
     }
 
+
+    //这个构造方法不能少，看源码可以得知。
     public FABBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
     }

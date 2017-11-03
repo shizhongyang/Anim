@@ -48,7 +48,9 @@
         <activity android:name=".ui.customviewgroup.ParallelActivity" />
         <activity android:name=".ui.customviewgroup.ViewGroupContainerActivity" />
         <activity android:name=".ui.matrial.AppBarLayoutActivity" />
-        <activity android:name=".ui.matrial.AppBarLayout_ViewpagerActivity"></activity>
+        <activity android:name=".ui.matrial.AppBarLayout_ViewpagerActivity" />
+        <activity android:name=".ui.matrial.RevealEffectActivity" />
+        <activity android:name=".ui.customviewgroup.DiscrollActivity"></activity>
     </application>
 
 </manifest>

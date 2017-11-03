@@ -43,6 +43,9 @@ public class MDContainerActivity extends AppCompatActivity {
             case R.id.btn8:
                 intent.setClass(this, AppBarLayout_ViewpagerActivity.class);
                 break;
+            case R.id.btn9:
+                intent.setClass(this, RevealEffectActivity.class);
+                break;
         }
         startActivity(intent);
     }
