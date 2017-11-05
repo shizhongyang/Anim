@@ -44,7 +44,7 @@
             android:onClick="click"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text="MyListView" />
         <Button
             android:id="@+id/btn6"
             android:onClick="click"
@@ -53,6 +53,12 @@
             android:text="" />
         <Button
             android:id="@+id/btn7"
+            android:onClick="click"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+        <Button
+            android:id="@+id/btn8"
             android:onClick="click"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

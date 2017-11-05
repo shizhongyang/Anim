@@ -119,7 +119,6 @@
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 android:layout_height="30dp"
                 android:background="#A67"
-
                 android:gravity="center"
                 android:text="Tab2"
                 app:layout_constraintBottom_toBottomOf="parent"

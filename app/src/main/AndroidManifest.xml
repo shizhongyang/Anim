@@ -50,7 +50,8 @@
         <activity android:name=".ui.matrial.AppBarLayoutActivity" />
         <activity android:name=".ui.matrial.AppBarLayout_ViewpagerActivity" />
         <activity android:name=".ui.matrial.RevealEffectActivity" />
-        <activity android:name=".ui.customviewgroup.DiscrollActivity"></activity>
+        <activity android:name=".ui.customviewgroup.DiscrollActivity" />
+        <activity android:name=".ui.customviewgroup.MyListViewActivity"></activity>
     </application>
 
 </manifest>
