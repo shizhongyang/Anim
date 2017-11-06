@@ -57,6 +57,8 @@ public class FlowLayout extends ViewGroup {
                 continue;
             }
 
+
+            //resolveSizeAndState()
             /*
             测量子View  这里面传入的参数是子view和父view的measureSpec,传入的不是mode
              */

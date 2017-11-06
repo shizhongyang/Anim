@@ -32,10 +32,13 @@ public class ViewGroupContainerActivity extends AppCompatActivity {
                 intent.setClass(this, DiscrollActivity.class);
                 break;
             case R.id.btn5:
+
                 intent.setClass(this, MyListViewActivity.class);
+
+
                 break;
             case R.id.btn6:
-                intent.setClass(this, MiClockActivity.class);
+                intent.setClass(this, ViewPagerActivity.class);
                 break;
             case R.id.btn7:
                 intent.setClass(this, MyListViewActivity.class);
