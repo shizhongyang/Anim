@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bo.anim.R;
-import com.bo.anim.ui.customview.CustomCameraAndMatrixActivity;
 import com.bo.anim.ui.customview.MiClockActivity;
 
 public class ViewGroupContainerActivity extends AppCompatActivity {
@@ -33,7 +32,7 @@ public class ViewGroupContainerActivity extends AppCompatActivity {
                 intent.setClass(this,DiscrollActivity.class);
                 break;
             case R.id.btn5:
-                intent.setClass(this,CustomCameraAndMatrixActivity.class);
+                intent.setClass(this,ViewPagerActivity.class);
                 break;
             case R.id.btn6:
                 intent.setClass(this,MiClockActivity.class);

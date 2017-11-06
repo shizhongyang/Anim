@@ -1,12 +1,12 @@
 package com.bo.anim.ui.event;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.bo.anim.R;
 import com.bo.anim.custom.event.MyButton;
 
-public class TestEvent1Activity extends AppCompatActivity {
+public class TestEvent1Activity extends Activity {
 
     private MyButton btn1;
 
