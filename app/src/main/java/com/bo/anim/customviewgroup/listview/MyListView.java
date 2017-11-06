@@ -13,7 +13,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
+import android.view.animation.LinearInterpolator;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import com.bo.anim.R;
  * Created by Administrator on 2017/11/5.
  */
 
-public class MyListView extends ListView implements View.OnTouchListener {
+public class MyListView extends ListView implements View.OnTouchListener ,AbsListView.OnScrollListener{
 
     private static final String TAG = "listview----";
 
@@ -62,7 +63,6 @@ public class MyListView extends ListView implements View.OnTouchListener {
 
     @SuppressLint("InflateParams")
     private void init() {
-
         if (headerContent == null) {
             headerContent = LayoutInflater.from(getContext()).inflate(R.layout.listview_header, null);
 
@@ -77,6 +77,8 @@ public class MyListView extends ListView implements View.OnTouchListener {
             headerContent.invalidate();
         }
         setOnTouchListener(this);
+
+        setOnScrollListener(this);
     }
 
     private void measureView(View child) {
@@ -115,6 +117,7 @@ public class MyListView extends ListView implements View.OnTouchListener {
     //将下拉出来的速度放慢
     private static final float SLOWLY = 2f;
     boolean isRotate = false;
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -138,10 +141,20 @@ public class MyListView extends ListView implements View.OnTouchListener {
             case MotionEvent.ACTION_MOVE:
                 if (getFirstVisiblePosition() == 0 || getFirstVisiblePosition() == 1)
                     if (isDrag) {
-                        mMoveY = event.getRawY() - mFirstY;
+
+                        this.getScrollY();
+
+                        mMoveY = event.getRawY() - mFirstY;  //这样算是手指按下去的点相对于移动的点的距离
+                        mFirstY = event.getRawY();
                         Log.i(TAG, "paddingTop: " + paddingTop + "mMoveY: " + mMoveY);
-                        headerContent.setPadding(0, (int) (mMoveY / SLOWLY + paddingTop), 0, 0);
-                        if (headerContent.getPaddingTop() > measuerHeaderHeight) {
+                        headerContent.setPadding(0, (int) (mMoveY / SLOWLY + headerContent.getPaddingTop()), 0, 0);
+
+                        //headerContent.getPaddingTop()初始值是负，所以要加上measuerHeaderHeight
+                        //这样往下拉的过程中就可以得出拉出的高度
+                        Log.i(TAG, "getPaddingTop(): " +(headerContent.getPaddingTop())
+                                +"--"+ (mMoveY)+"top"+event.getY());
+
+                        if (headerContent.getPaddingTop() + measuerHeaderHeight > measuerHeaderHeight) {
                             if (!isRotate) {
                                 doRotateYAnim(0, 180);
                                 isRotate = true;
@@ -175,7 +188,6 @@ public class MyListView extends ListView implements View.OnTouchListener {
                 //那么MOVE中的event.getRawY()值就会是没有抬起的那根手指的值，这样就是造成瞬间
                 //滑动很大的距离（event.getRawY() - 0 ）
                 break;
-
         }
         return false;
     }
@@ -184,37 +196,42 @@ public class MyListView extends ListView implements View.OnTouchListener {
         ObjectAnimator animator = ObjectAnimator.ofFloat(img, "rotation", fromDegree, toDegree);
         animator.setDuration(200);
         animator.start();
-
-
     }
 
     private void doAnim(final float distance) {
-        Log.i(TAG, "measuerHeaderHeight: " + measuerHeaderHeight);
+        Log.i(TAG, "measuerHeaderHeight: " + distance);
         ValueAnimator animator = ValueAnimator.ofFloat(distance, -measuerHeaderHeight);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float animatedValue = (float) animation.getAnimatedValue();
-                Log.i(TAG, "animatedValue: " + animatedValue);
-                headerContent.setPadding(0, (int) animatedValue, 0, 0);
-                headerContent.invalidate();
+
+                if (getFirstVisiblePosition() == 0 || getFirstVisiblePosition() == 1){
+                    Log.i(TAG, "animatedValue: " + animatedValue+"---"+MyListView.this.getScrollY()
+                            +"--"+getFirstVisiblePosition());
+                    headerContent.setPadding(0, (int) animatedValue, 0, 0);
+                    headerContent.invalidate();
+                }
+                smoothScrollToPosition(0);
             }
         });
         //animator.setDuration((long) (distance / getHeight() * 300));
         animator.setDuration(300);
 
-        animator.setInterpolator(new AccelerateInterpolator());
+        animator.setInterpolator(new LinearInterpolator());
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
                 Log.i(TAG, "animatedValue: 动画开始");
                 isBack = true;
+
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 Log.i(TAG, "animatedValue: 动画结束");
                 isBack = false;
+
             }
 
             @Override
@@ -228,6 +245,16 @@ public class MyListView extends ListView implements View.OnTouchListener {
             }
         });
         animator.start();
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        System.out.println("listview--------------"+firstVisibleItem);
     }
 
 
