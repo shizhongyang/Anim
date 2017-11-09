@@ -38,6 +38,7 @@ public class ViewPagerActivity extends AppCompatActivity {
                 48, getResources().getDisplayMetrics()));
         viewPager.setCurrentItem(1);
         viewPager.setPageTransformer(false,new ScaleTransformer(getApplicationContext()));
+        viewPager.getParent();
     }
 
 

@@ -72,7 +72,6 @@ public class RecyclerActivity extends AppCompatActivity implements FABAction{
             }
         }).show();
 
-
     }
 
     @Override

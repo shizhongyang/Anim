@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         img = (ImageView) findViewById(R.id.img);
+      // Activity
         //View.inflate()
 
         tv = (TextView) findViewById(R.id.tv1);

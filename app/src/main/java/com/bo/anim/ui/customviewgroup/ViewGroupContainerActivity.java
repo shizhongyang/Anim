@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bo.anim.R;
-import com.bo.anim.ui.customview.MiClockActivity;
 
 public class ViewGroupContainerActivity extends AppCompatActivity {
 
@@ -35,13 +34,15 @@ public class ViewGroupContainerActivity extends AppCompatActivity {
 
                 intent.setClass(this, MyListViewActivity.class);
 
-
                 break;
             case R.id.btn6:
                 intent.setClass(this, ViewPagerActivity.class);
                 break;
             case R.id.btn7:
                 intent.setClass(this, MyListViewActivity.class);
+                break;
+                case R.id.btn8:
+                intent.setClass(this, ParallaxActivity.class);
                 break;
         }
         startActivity(intent);

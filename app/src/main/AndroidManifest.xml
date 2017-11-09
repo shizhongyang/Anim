@@ -51,11 +51,10 @@
         <activity android:name=".ui.matrial.AppBarLayout_ViewpagerActivity" />
         <activity android:name=".ui.matrial.RevealEffectActivity" />
         <activity android:name=".ui.customviewgroup.DiscrollActivity" />
-
-        <activity android:name=".ui.customviewgroup.MyListViewActivity"></activity>
-
-        <activity android:name=".ui.customviewgroup.ViewPagerActivity"></activity>
-
+        <activity android:name=".ui.customviewgroup.MyListViewActivity" />
+        <activity android:name=".ui.customviewgroup.ViewPagerActivity" />
+        <activity android:name=".ui.customviewgroup.TranslucentActivity" />
+        <activity android:name=".ui.customviewgroup.ParallaxActivity"></activity>
     </application>
 
 </manifest>

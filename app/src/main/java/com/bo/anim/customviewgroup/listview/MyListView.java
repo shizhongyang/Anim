@@ -25,20 +25,35 @@ import com.bo.anim.R;
  * Created by Administrator on 2017/11/5.
  */
 
-public class MyListView extends ListView implements View.OnTouchListener ,AbsListView.OnScrollListener{
+public class MyListView extends ListView implements View.OnTouchListener, AbsListView.OnScrollListener {
 
     private static final String TAG = "listview----";
 
     //头部的View
-    public View headerContent;
+    private View headerContent;
 
     //头部View中的子控件
     public ImageView img;
+
     public TextView tv;
 
     //测量后得到头部的高度
     public int measuerHeaderHeight;
 
+    enum Signal {
+        NONE, //初始状态
+        PULL, //正在下拉的状态
+        RELEASE, //提示松开刷新
+        REFRESHING //正在刷新
+    }
+
+    Signal flag = Signal.NONE; //设置为初始状态
+
+    private onRefreshListener refreshListener;
+
+    public void setRefreshListener(onRefreshListener refreshListener) {
+        this.refreshListener = refreshListener;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public MyListView(Context context) {
@@ -64,6 +79,8 @@ public class MyListView extends ListView implements View.OnTouchListener ,AbsLis
     @SuppressLint("InflateParams")
     private void init() {
         if (headerContent == null) {
+
+
             headerContent = LayoutInflater.from(getContext()).inflate(R.layout.listview_header, null);
 
             img = ((ImageView) headerContent.findViewById(R.id.img));
@@ -77,7 +94,6 @@ public class MyListView extends ListView implements View.OnTouchListener ,AbsLis
             headerContent.invalidate();
         }
         setOnTouchListener(this);
-
         setOnScrollListener(this);
     }
 
@@ -87,7 +103,7 @@ public class MyListView extends ListView implements View.OnTouchListener ,AbsLis
             layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
         }
-        //得到ziView的measureSpec
+        //得到子View的measureSpec
         int childWidthSpec = ViewGroup.getChildMeasureSpec(0, 0, layoutParams.width);
         int lpHeight = layoutParams.height;
         int childHeightSpec;
@@ -98,6 +114,7 @@ public class MyListView extends ListView implements View.OnTouchListener ,AbsLis
         }
         child.measure(childWidthSpec, childHeightSpec);
     }
+
 
     //手指按下的时候的Y值
     private float mFirstY;
@@ -110,18 +127,16 @@ public class MyListView extends ListView implements View.OnTouchListener ,AbsLis
     //是否可以拖动
     private boolean isDrag;
 
-
     //头部View的paddingTop
     int paddingTop;
 
     //将下拉出来的速度放慢
     private static final float SLOWLY = 2f;
+
     boolean isRotate = false;
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
-        Log.i(TAG, "正在回弹" + isBack);
         if (isBack) {
             return false;
         }
@@ -142,35 +157,59 @@ public class MyListView extends ListView implements View.OnTouchListener ,AbsLis
                 if (getFirstVisiblePosition() == 0 || getFirstVisiblePosition() == 1)
                     if (isDrag) {
 
-                        this.getScrollY();
-
                         mMoveY = event.getRawY() - mFirstY;  //这样算是手指按下去的点相对于移动的点的距离
                         mFirstY = event.getRawY();
-                        Log.i(TAG, "paddingTop: " + paddingTop + "mMoveY: " + mMoveY);
-                        headerContent.setPadding(0, (int) (mMoveY / SLOWLY + headerContent.getPaddingTop()), 0, 0);
+                        // Log.i(TAG, "paddingTop: " + paddingTop + "mMoveY: " + mMoveY);
+                        headerContent.setPadding(0, (int) (mMoveY / SLOWLY +
+                                headerContent.getPaddingTop()), 0, 0);
 
                         //headerContent.getPaddingTop()初始值是负，所以要加上measuerHeaderHeight
                         //这样往下拉的过程中就可以得出拉出的高度
-                        Log.i(TAG, "getPaddingTop(): " +(headerContent.getPaddingTop())
-                                +"--"+ (mMoveY)+"top"+event.getY());
-
-                        if (headerContent.getPaddingTop() + measuerHeaderHeight > measuerHeaderHeight) {
-                            if (!isRotate) {
-                                doRotateYAnim(0, 180);
-                                isRotate = true;
-                            }
-                        } else {
-                            if (isRotate) {
-                                doRotateYAnim(180, 360);
-                                isRotate = false;
-                            }
+                        Log.i(TAG, "getPaddingTop(): " + (headerContent.getPaddingTop())
+                                + "--" + (mMoveY) + "top" + event.getY());
+                        int scroll = getScroll();
+                        switch (flag) {
+                            case NONE:
+                                //刚进来判断是否滑动，如果是正在滑动，标记为下拉
+                                if (headerContent.getPaddingTop() + measuerHeaderHeight > 0)
+                                    flag = Signal.PULL;
+                                break;
+                            case PULL:
+                                tv.setText("下拉刷新");
+                                //这里最开始用 headerContent.getPaddingTop()>0 来判断，但是
+                                //headerContent.getPaddingTop()不知道为什么这个值一直有差错。
+                                if (scroll > measuerHeaderHeight) {
+                                    if (!isRotate) {
+                                        doRotateYAnim(0, 180);
+                                        isRotate = true;
+                                    }
+                                    flag = Signal.RELEASE;
+                                } else {
+                                    if (isRotate) {
+                                        doRotateYAnim(180, 360);
+                                        isRotate = false;
+                                    }
+                                }
+                                break;
+                            case RELEASE:
+                                tv.setText("放开刷新");
+                                if (scroll < measuerHeaderHeight) {
+                                    flag = Signal.PULL;
+                                } else {
+                                    flag = Signal.REFRESHING;
+                                }
+                                break;
                         }
-                        // Log.i(TAG, "mMoveY: " + mMoveY);
                     }
                 break;
             case MotionEvent.ACTION_UP:
-                if (getFirstVisiblePosition() == 0 || getFirstVisiblePosition() == 1)
-                    doAnim(headerContent.getPaddingTop());
+                if (getFirstVisiblePosition() == 0 || getFirstVisiblePosition() == 1) {
+                    if (flag == Signal.REFRESHING) {
+                        doAnim1(headerContent.getPaddingTop());
+                    } else if (flag == Signal.PULL) {
+                        doAnim(headerContent.getPaddingTop());
+                    }
+                }
                 //这里面传入getPaddingTop更加合适 传入paddingTop的话是按下的时候的paddingTop  没有及时更新。
                 mFirstY = 0;
                 mMoveY = 0;
@@ -198,40 +237,41 @@ public class MyListView extends ListView implements View.OnTouchListener ,AbsLis
         animator.start();
     }
 
-    private void doAnim(final float distance) {
+    private void doAnim1(final float distance) {
         Log.i(TAG, "measuerHeaderHeight: " + distance);
-        ValueAnimator animator = ValueAnimator.ofFloat(distance, -measuerHeaderHeight);
+        ValueAnimator animator = ValueAnimator.ofFloat(distance, 0);
+
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float animatedValue = (float) animation.getAnimatedValue();
-
-                if (getFirstVisiblePosition() == 0 || getFirstVisiblePosition() == 1){
-                    Log.i(TAG, "animatedValue: " + animatedValue+"---"+MyListView.this.getScrollY()
-                            +"--"+getFirstVisiblePosition());
-                    headerContent.setPadding(0, (int) animatedValue, 0, 0);
-                    headerContent.invalidate();
+                if (getFirstVisiblePosition() == 0 || getFirstVisiblePosition() == 1) {
+                    Log.i(TAG, "animatedValue: " + animatedValue + "---");
+                    if (getScroll() > measuerHeaderHeight) {
+                        headerContent.setPadding(0, (int) animatedValue, 0, 0);
+                        headerContent.invalidate();
+                    }
                 }
-                smoothScrollToPosition(0);
+                // smoothScrollToPosition(0);
             }
         });
         //animator.setDuration((long) (distance / getHeight() * 300));
-        animator.setDuration(300);
-
+        animator.setDuration(100);
         animator.setInterpolator(new LinearInterpolator());
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
                 Log.i(TAG, "animatedValue: 动画开始");
                 isBack = true;
-
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 Log.i(TAG, "animatedValue: 动画结束");
-                isBack = false;
-
+                //isBack = false;
+                if (refreshListener != null)
+                    refreshListener.onRefresh();
+                // headerContent.setPadding(0, -measuerHeaderHeight, 0, 0);
             }
 
             @Override
@@ -247,6 +287,67 @@ public class MyListView extends ListView implements View.OnTouchListener ,AbsLis
         animator.start();
     }
 
+    private void doAnim(final float distance) {
+        Log.i(TAG, "measuerHeaderHeight: " + distance);
+        ValueAnimator animator = ValueAnimator.ofFloat(distance, -measuerHeaderHeight);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float animatedValue = (float) animation.getAnimatedValue();
+                if (getFirstVisiblePosition() == 0 || getFirstVisiblePosition() == 1) {
+                    Log.i(TAG, "animatedValue: " + animatedValue + "---");
+                    if (getScroll() > 0) {
+                        headerContent.setPadding(0, (int) animatedValue, 0, 0);
+                        headerContent.invalidate();
+                    }
+                }
+                // smoothScrollToPosition(0);
+            }
+        });
+        //animator.setDuration((long) (distance / getHeight() * 300));
+        animator.setDuration(100);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                Log.i(TAG, "animatedValue: 动画开始");
+                isBack = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Log.i(TAG, "animatedValue: 动画结束");
+                isBack = false;
+                // headerContent.setPadding(0, -measuerHeaderHeight, 0, 0);
+                //最后需要将旋转的图片位置复原
+                doRotateYAnim(180, 0);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        animator.start();
+    }
+
+    //
+    public int getScroll() {
+        View c = this.getChildAt(1);
+        if (c == null) {
+            return 0;
+        }
+        int firstVisiblePosition = this.getFirstVisiblePosition();
+        //System.out.println("-----------" + c + top);
+        //return -top + firstVisiblePosition * c.getHeight() ;
+        return c.getTop();
+    }
+
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -254,9 +355,14 @@ public class MyListView extends ListView implements View.OnTouchListener ,AbsLis
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        System.out.println("listview--------------"+firstVisibleItem);
+        //System.out.println("listview--------------" + firstVisibleItem);
     }
 
+    public void onFinish() {
+        doAnim(headerContent.getPaddingTop());
+        flag = Signal.NONE; //刷新结束将状态置为初始状态
+        isRotate = false;
+    }
 
     //父类中测量子View
     /*@Override
