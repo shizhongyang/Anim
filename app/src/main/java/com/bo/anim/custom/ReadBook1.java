@@ -89,6 +89,11 @@ public class ReadBook1 extends View {
 
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        System.out.println("调用次数");
+    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {

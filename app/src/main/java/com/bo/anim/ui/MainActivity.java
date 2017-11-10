@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bo.anim.R;
 import com.bo.anim.ui.customview.CustomContainsActivity;
 import com.bo.anim.ui.customviewgroup.ViewGroupContainerActivity;
+import com.bo.anim.ui.db.DBTestActivity;
 import com.bo.anim.ui.event.EventActivity;
 import com.bo.anim.ui.matrial.MDContainerActivity;
 
@@ -100,6 +101,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,MDContainerActivity.class));
+            }
+
+        });
+        findViewById(R.id.btn10).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,DBTestActivity.class));
             }
 
         });

@@ -60,6 +60,12 @@
         android:layout_width="match_parent"
         android:text="material design"
         android:layout_height="wrap_content" />
+    <Button
+        android:layout_below="@+id/btn9"
+        android:id="@+id/btn10"
+        android:layout_width="match_parent"
+        android:text="material design"
+        android:layout_height="wrap_content" />
     <ImageView
         android:id="@+id/img"
         android:layout_width="wrap_content"
@@ -69,6 +75,7 @@
         android:layout_height="wrap_content" />
     <include
         android:layout_height="100dp"
+        android:visibility="gone"
         android:layout_below="@+id/btn9"
         android:layout_width="match_parent"
         layout="@layout/test_contriant_layout"/>

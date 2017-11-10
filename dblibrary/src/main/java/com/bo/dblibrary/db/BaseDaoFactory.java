@@ -13,27 +13,28 @@ public class BaseDaoFactory {
 
     private SQLiteDatabase sqLiteDatabase;
 
-    private static  BaseDaoFactory instance=new BaseDaoFactory();
+    private static BaseDaoFactory instance = new BaseDaoFactory();
 
     private BaseDaoFactory() {
         sqliteDatabasePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/shi.db";
         openDatabase();
     }
 
-    public synchronized  <T extends BaseDao<M>, M> T
-    getDataHelper(Class<T> clazz,Class<M> entityClass) {
-        BaseDao baseDao = null;
 
+    public synchronized <T extends BaseDao<M>, M> T getDataHelper(Class<T> clazz, Class<M> entityClass) {
+        BaseDao<M> baseDao = null;
         try {
-            baseDao = clazz.newInstance();
-            baseDao.init(entityClass,sqLiteDatabase);
+            //利用反射来获取对象
+            baseDao = (BaseDao<M>)clazz.newInstance();
+            baseDao.init(entityClass, sqLiteDatabase);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
-        return (T) baseDao;
+        @SuppressWarnings("unchecked")
+        T dao = (T) baseDao;
+        return dao;
     }
 
 
@@ -41,8 +42,7 @@ public class BaseDaoFactory {
         this.sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase(sqliteDatabasePath, null);
     }
 
-    public  static  BaseDaoFactory getInstance()
-    {
+    public static BaseDaoFactory getInstance() {
         return instance;
     }
 }

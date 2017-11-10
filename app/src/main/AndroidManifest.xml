@@ -3,6 +3,9 @@
     package="com.bo.anim">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
         android:name=".ui.MyApplication"
@@ -54,7 +57,8 @@
         <activity android:name=".ui.customviewgroup.MyListViewActivity" />
         <activity android:name=".ui.customviewgroup.ViewPagerActivity" />
         <activity android:name=".ui.customviewgroup.TranslucentActivity" />
-        <activity android:name=".ui.customviewgroup.ParallaxActivity"></activity>
+        <activity android:name=".ui.customviewgroup.ParallaxActivity" />
+        <activity android:name=".ui.db.DBTestActivity"></activity>
     </application>
 
 </manifest>
