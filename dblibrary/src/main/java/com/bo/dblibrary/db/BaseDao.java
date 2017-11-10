@@ -93,9 +93,6 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
         }finally {
             cursor.close();
         }
-
-
-
     }
 
 
