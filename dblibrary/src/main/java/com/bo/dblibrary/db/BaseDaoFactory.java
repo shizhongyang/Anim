@@ -1,7 +1,9 @@
 package com.bo.dblibrary.db;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Environment;
+import android.util.Log;
+
+import com.bo.dblibrary.db.tools.SDCardUtil;
 
 /**
  * Created by TT on 2017-11-09.
@@ -16,7 +18,8 @@ public class BaseDaoFactory {
     private static BaseDaoFactory instance = new BaseDaoFactory();
 
     private BaseDaoFactory() {
-        sqliteDatabasePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/shi.db";
+        sqliteDatabasePath = SDCardUtil.getExternalSdCardPath() + "/shi.db";
+        Log.i("shixin",sqliteDatabasePath);
         openDatabase();
     }
 

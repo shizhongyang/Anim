@@ -64,7 +64,7 @@
         android:layout_below="@+id/btn9"
         android:id="@+id/btn10"
         android:layout_width="match_parent"
-        android:text="material design"
+        android:text="db"
         android:layout_height="wrap_content" />
     <ImageView
         android:id="@+id/img"
