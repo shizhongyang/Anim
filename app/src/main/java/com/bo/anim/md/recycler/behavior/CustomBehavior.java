@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * Created by TT on 2017-11-03.
+ * Created by shixin on 2017-11-03.
+ * author shixin
+ *
  */
 
 public class CustomBehavior extends CoordinatorLayout.Behavior {
@@ -30,7 +32,6 @@ public class CustomBehavior extends CoordinatorLayout.Behavior {
         //dependency.getTag();
         //dependency.getId();
        // ViewAnimationUtils.createCircularReveal()
-
         return dependency instanceof TextView || super.layoutDependsOn(parent, child, dependency);
     }
 
@@ -46,3 +47,37 @@ public class CustomBehavior extends CoordinatorLayout.Behavior {
         return true;
     }
 }
+/*
+<android.support.design.widget.CoordinatorLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ricky.materialdesign.fab.animation.MainActivity" >
+
+    <TextView
+        android:id="@+id/tv1"
+        android:tag="tv1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="#ff0"
+        android:layout_gravity="left|top"
+        android:text="被观察--dependent" />
+    <TextView
+        app:layout_behavior="com.ricky.materialdesign.custombehavior.CustomBehavior"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="right|top"
+        android:background="#f00"
+        android:text="观察者" />
+    <TextView
+        app:layout_behavior="com.ricky.materialdesign.custombehavior.CustomBehavior"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="#f00"
+        android:text="观察者" />
+
+</android.support.design.widget.CoordinatorLayout>
+*/

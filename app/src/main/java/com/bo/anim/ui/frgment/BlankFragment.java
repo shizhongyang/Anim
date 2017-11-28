@@ -4,11 +4,22 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bo.anim.R;
+import com.bo.anim.base.BaseRecyclerAdapter;
+import com.bo.anim.base.BaseRecyclerHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,11 +35,19 @@ public class BlankFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    RecyclerView mRecyclerView;
+    private static final String KEY = "key";
+    private String title = "测试";
+
+    List<String> mDatas = new ArrayList<>();
+    private ItemAdapter mAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
 
     public BlankFragment() {
         // Required empty public constructor
@@ -43,11 +62,10 @@ public class BlankFragment extends Fragment {
      * @return A new instance of fragment BlankFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BlankFragment newInstance(String param1, String param2) {
+    public static BlankFragment newInstance(String param1) {
         BlankFragment fragment = new BlankFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,54 +74,89 @@ public class BlankFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            title = getArguments().getString(ARG_PARAM1);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank, container, false);
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        View view = inflater.inflate(R.layout.fragment_blank, container, false);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setEnabled(false);
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(),
+                LinearLayoutManager.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        for (int i = 0; i < 50; i++) {
+            String s = String.format("我是第%d个" + title, i);
+            mDatas.add(s);
         }
+
+        mAdapter = new ItemAdapter(getActivity(), mDatas);
+        mRecyclerView.setAdapter(mAdapter);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSwipeRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        Toast.makeText(getActivity(), "刷新完成", Toast.LENGTH_SHORT).show();
+                    }
+                }, 1200);
+            }
+        });
+
+        return view;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+
+    public void tooglePager(boolean isOpen) {
+        if (isOpen) {
+            setRefreshEnable(false);
+            scrollToFirst(false);
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            setRefreshEnable(true);
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void scrollToFirst(boolean isSmooth) {
+        if (mRecyclerView == null) {
+            return;
+        }
+        if (isSmooth) {
+            mRecyclerView.smoothScrollToPosition(0);
+        } else {
+            mRecyclerView.scrollToPosition(0);
+        }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
+    public void setRefreshEnable(boolean enabled) {
+        if (mSwipeRefreshLayout != null) {
+            mSwipeRefreshLayout.setEnabled(enabled);
+        }
+
     }
+    public class ItemAdapter extends BaseRecyclerAdapter<String> {
+
+        public ItemAdapter(Context context,List<String> datas) {
+            super(context, R.layout.item_string, datas);
+        }
+
+        @Override
+        public void convert(BaseRecyclerHolder holder, String item, int position) {
+            TextView tv=holder.getView(R.id.tv);
+            tv.setText(item);
+
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.bo.anim.ui.matrial;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ public class AdvancedRecyclerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_recycler);
         myAdapter = new MyHeaderAndFooterWrapper();
+        Activity activity = new Activity();
         myAdapter.addHeader(0);
         myAdapter.addHeader(0);
         myAdapter.addHeader(0);

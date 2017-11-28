@@ -75,6 +75,13 @@
         android:layout_height="wrap_content"
         android:onClick="click"
         app:layout_constraintTop_toBottomOf="@id/btn9"
-        android:text=""
+        android:text="weibo"
         android:id="@+id/btn10" />
+    <Button
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:onClick="click"
+        app:layout_constraintTop_toBottomOf="@id/btn10"
+        android:text=""
+        android:id="@+id/btn11" />
 </android.support.constraint.ConstraintLayout>

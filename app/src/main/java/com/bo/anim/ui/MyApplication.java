@@ -36,19 +36,16 @@ public class MyApplication extends Application {
     /**
      * 获取应用程序名称
      */
-    public static String getAppName()
-    {
-        try
-        {
+    public static String getAppName() {
+        try {
             PackageManager packageManager = instance.getPackageManager();
             PackageInfo packageInfo = packageManager.getPackageInfo(
                     instance.getPackageName(), 0);
             int labelRes = packageInfo.applicationInfo.labelRes;
-            return instance.getResources().getString(labelRes);
-        } catch (PackageManager.NameNotFoundException e)
-        {
+            return instance.getResources().getString(labelRes) + "";
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return null;
+        return "Anim";
     }
 }

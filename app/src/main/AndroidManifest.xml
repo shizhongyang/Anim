@@ -42,7 +42,7 @@
         <activity android:name=".ui.event.ZoomImageActivity" />
         <activity android:name=".ui.matrial.AppBarLayout_CollapsingActivity" />
         <activity android:name=".ui.customview.MiClockActivity" />
-        <activity android:name=".ui.matrial.RecyclerActivity" />
+        <activity android:name=".ui.matrial.RecyclerAndFABBehaviorActivity" />
         <activity android:name=".ui.matrial.StickyRecyclerActivity" />
         <activity android:name=".ui.matrial.MDContainerActivity" />
         <activity android:name=".ui.matrial.RecyclerAddHeaderActivity" />
@@ -58,7 +58,11 @@
         <activity android:name=".ui.customviewgroup.ViewPagerActivity" />
         <activity android:name=".ui.customviewgroup.TranslucentActivity" />
         <activity android:name=".ui.customviewgroup.ParallaxActivity" />
-        <activity android:name=".ui.db.DBTestActivity"></activity>
+        <activity android:name=".ui.db.DBTestActivity" />
+
+        <service android:name=".service.MyService" />
+
+        <activity android:name=".ui.matrial.WeiboFindPageActivity"></activity>
     </application>
 
 </manifest>

@@ -23,7 +23,7 @@ public class MDContainerActivity extends AppCompatActivity {
                 intent.setClass(this, AppBarLayoutActivity.class);
                 break;
             case R.id.btn2:
-                intent.setClass(this, RecyclerActivity.class);
+                intent.setClass(this, RecyclerAndFABBehaviorActivity.class);
                 break;
             case R.id.btn3:
                 intent.setClass(this, StickyRecyclerActivity.class);
@@ -45,6 +45,9 @@ public class MDContainerActivity extends AppCompatActivity {
                 break;
             case R.id.btn9:
                 intent.setClass(this, RevealEffectActivity.class);
+                break;
+            case R.id.btn10:
+                intent.setClass(this, WeiboFindPageActivity.class);
                 break;
         }
         startActivity(intent);

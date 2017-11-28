@@ -22,7 +22,7 @@ import com.bo.anim.md.recycler.scroll.FABScrollListener;
 
 import java.util.ArrayList;
 
-public class RecyclerActivity extends AppCompatActivity implements FABAction{
+public class RecyclerAndFABBehaviorActivity extends AppCompatActivity implements FABAction{
     private RecyclerView recylerview;
     private ArrayList<String> list;
     private MyRecyclerAdapter adapter;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -19,6 +20,8 @@ import com.bo.anim.R;
 
 public class BitmapView extends View {
 
+    private final Bitmap mBmp;
+    private final Canvas mBmpCanvas;
     private Bitmap bmp;
 
     private float x1;
@@ -47,10 +50,16 @@ public class BitmapView extends View {
         //方法二：从图片中加载
         bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, null);
         init();
+
+        mPaint = new Paint();
+        mPaint.setColor(Color.RED);
+        mBmp = Bitmap.createBitmap(500 ,500 , Bitmap.Config.ARGB_8888);
+        mBmpCanvas = new Canvas(mBmp);
     }
 
     private Paint mPaint;
 
+    Canvas canvas = new Canvas();
     private void init() {
         setLayerType(LAYER_TYPE_SOFTWARE, null);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -136,13 +145,18 @@ public class BitmapView extends View {
         super.onDraw(canvas);
 
         /*canvas.save();
-
         canvas.drawBitmap(bmp,0,0,null);
         canvas.restore();*/
         /* mPaint.setShader(new LinearGradient(getWidth() / 2, getHeight() / 2 - 100, getWidth() / 2,
                 getHeight() / 2 - 100, 0x00ff0000, 0xffff0000, Shader.TileMode.CLAMP));*/
         // canvas.drawLine(0,0,getWidth(),getHeight(),mPaint);
         canvas.drawCircle(centerX + x1, centerY + y1, 100, mPaint);
+
+
+
+        mBmpCanvas.drawText("Hello World",0,100,mPaint);
+
+        canvas.drawBitmap(mBmp,0,0,mPaint);
     }
 
     class Task implements Runnable {

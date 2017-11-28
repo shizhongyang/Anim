@@ -6,4 +6,5 @@
     <dimen name="sectioned_top">32dp</dimen>
 
     <dimen name="list_item_height">222dp</dimen>
+    <dimen name="two_hundred_dp">200dp</dimen>
 </resources>
