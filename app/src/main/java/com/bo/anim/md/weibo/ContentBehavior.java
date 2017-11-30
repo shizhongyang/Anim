@@ -2,6 +2,7 @@ package com.bo.anim.md.weibo;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -52,8 +53,8 @@ public class ContentBehavior extends HeaderScrollingViewBehavior {
         int  translationY = (int) (-dependencyTranslationY / (getHeaderOffsetRange() * 1.0f)
                 * getScrollRange(dependency));
         Log.i(TAG, "offsetChildAsNeeded: translationY=" + translationY);
-        child.setTranslationY(translationY);
-        //ViewCompat.offsetTopAndBottom(child, translationY);
+        //child.setTranslationY(translationY);
+        ViewCompat.setTranslationY(child, translationY);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class ContentBehavior extends HeaderScrollingViewBehavior {
 
 
     private int getHeaderOffsetRange() {
-        return -MyApplication.getInstance().getResources().getDimensionPixelOffset(R.dimen.two_hundred_dp);
+        return -MyApplication.getInstance().getResources().getDimensionPixelOffset(R.dimen.header_page_height_dp);
     }
 
     @Override

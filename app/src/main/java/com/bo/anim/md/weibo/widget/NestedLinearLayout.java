@@ -31,7 +31,6 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
     private final int[] mNestedOffsets = new int[2];
 
     private VelocityTracker mVelocityTracker;
-    private int mScrollPointerId;
     private int mLastTouchX;
     private int mInitialTouchX;
     private int mInitialTouchY;
@@ -41,6 +40,8 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
     private int mMaxFlingVelocity;
 
     private NestedScrollingChildHelper mScrollingChildHelper;
+    private int mActivePointerId;
+    private boolean mIsBeingDragged;
 
     public NestedLinearLayout(Context context) {
         this(context, null);
@@ -69,27 +70,50 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
 
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent e) {
-        final boolean canScrollHorizontally = canScrollHorizontally(HORIZONTAL);
-        final boolean canScrollVertically = canScrollVertically(VERTICAL);
+    private void initOrResetVelocityTracker() {
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
+        } else {
+            mVelocityTracker.clear();
+        }
+    }
 
+    private void initVelocityTrackerIfNotExists() {
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
         }
-        mVelocityTracker.addMovement(e);
+    }
+
+    private void recycleVelocityTracker() {
+        if (mVelocityTracker != null) {
+            mVelocityTracker.recycle();
+            mVelocityTracker = null;
+        }
+    }
+
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent e) {
+
+        Log.i(TAG, "onInterceptTouchEvent: actionIndex");
+        final boolean canScrollHorizontally = canScrollHorizontally(HORIZONTAL);
+        final boolean canScrollVertically = canScrollVertically(VERTICAL);
 
         final int action = MotionEventCompat.getActionMasked(e);
         final int actionIndex = MotionEventCompat.getActionIndex(e);
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                mScrollPointerId = MotionEventCompat.getPointerId(e, 0);
+                mActivePointerId = e.getPointerId(0);
                 mInitialTouchX = mLastTouchX = (int) (e.getX() + 0.5f);
                 mInitialTouchY = mLastTouchY = (int) (e.getY() + 0.5f);
 
                 // Clear the nested offsets
                 mNestedOffsets[0] = mNestedOffsets[1] = 0;
+
+                initOrResetVelocityTracker();
+                mVelocityTracker.addMovement(e);
+
 
                 int nestedScrollAxis = ViewCompat.SCROLL_AXIS_NONE;
                 if (canScrollHorizontally) {
@@ -99,41 +123,53 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
                     nestedScrollAxis |= ViewCompat.SCROLL_AXIS_VERTICAL;
                 }
                 startNestedScroll(nestedScrollAxis);
-
+                Log.i(TAG, "onInterceptTouchEvent: ACTION_DOWN");
                 // 当开始滑动的时候，告诉父view
                 /*startNestedScroll(ViewCompat.SCROLL_AXIS_HORIZONTAL
                         | ViewCompat.SCROLL_AXIS_VERTICAL);*/
                 break;
 
             case MotionEventCompat.ACTION_POINTER_DOWN:
-                mScrollPointerId = MotionEventCompat.getPointerId(e, actionIndex);
+
+                mActivePointerId = e.getPointerId(actionIndex);
                 mInitialTouchX = mLastTouchX = (int) (MotionEventCompat.getX(e, actionIndex) + 0.5f);
                 mInitialTouchY = mLastTouchY = (int) (MotionEventCompat.getY(e, actionIndex) + 0.5f);
                 break;
             case MotionEvent.ACTION_MOVE:
+                final int pointerIndex = e.findPointerIndex(mActivePointerId);
 
-                return true;
+                final int y = (int) e.getY(pointerIndex);
+                final int yDiff = Math.abs(y - mLastTouchY);
+
+                if (yDiff > mTouchSlop) {
+                    mIsBeingDragged = true;
+                    initVelocityTrackerIfNotExists();
+                    mVelocityTracker.addMovement(e);
+                }
+                Log.i(TAG, "onInterceptTouchEvent: ACTION_MOVE");
+                break;
             case MotionEvent.ACTION_UP:
+                mIsBeingDragged = false;
                 mVelocityTracker.clear();
                 stopNestedScroll();
+                Log.i(TAG, "onInterceptTouchEvent: actionIndex" + actionIndex);
                 break;
         }
-        return super.onInterceptTouchEvent(e);
+        return mIsBeingDragged;
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final boolean canScrollHorizontally = canScrollHorizontally(HORIZONTAL);
         final boolean canScrollVertically = canScrollVertically(VERTICAL);
-        Log.i(TAG, "onTouchEvent: HORIZONTAL = " + canScrollHorizontally + "VERTICAL=" + canScrollVertically);
-        if (mVelocityTracker == null) {
-            mVelocityTracker = VelocityTracker.obtain();
-        }
+        //Log.i(TAG, "onTouchEvent: HORIZONTAL = " + canScrollHorizontally + "VERTICAL=" + canScrollVertically);
 
-        boolean eventAddedToVelocityTracker = false;
         MotionEvent vtev = MotionEvent.obtain(event);
         final int action = MotionEventCompat.getActionMasked(event);
         final int actionIndex = MotionEventCompat.getActionIndex(event);
+
+        //Log.i(TAG, "onTouchEvent: actionIndex" + actionIndex);
         if (action == MotionEvent.ACTION_DOWN) {
             mNestedOffsets[0] = mNestedOffsets[1] = 0;
         }
@@ -142,8 +178,8 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-
-                mScrollPointerId = MotionEventCompat.getPointerId(event, 0);
+                mActivePointerId = event.getPointerId(0);
+                Log.i(TAG, "onTouchEvent: mActivePointerId" + mActivePointerId);
                 mInitialTouchX = mLastTouchX = (int) (event.getX() + 0.5f);
                 mInitialTouchY = mLastTouchY = (int) (event.getY() + 0.5f);
 
@@ -158,21 +194,21 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
                 lastY = (int) event.getRawY();
                 break;
             case MotionEventCompat.ACTION_POINTER_DOWN:
-                mScrollPointerId = MotionEventCompat.getPointerId(event, actionIndex);
-                mInitialTouchX = mLastTouchX = (int) (MotionEventCompat.getX(event, actionIndex) + 0.5f);
-                mInitialTouchY = mLastTouchY = (int) (MotionEventCompat.getY(event, actionIndex) + 0.5f);
-
+                mActivePointerId = event.getPointerId(actionIndex);
+                mInitialTouchX = mLastTouchX = (int) (event.getX(actionIndex) + 0.5f);
+                mInitialTouchY = mLastTouchY = (int) (event.getY(actionIndex) + 0.5f);
                 break;
             case MotionEvent.ACTION_MOVE:
-                final int index = MotionEventCompat.findPointerIndex(event, mScrollPointerId);
+                final int index = event.findPointerIndex(mActivePointerId);
+                //final int index = MotionEventCompat.findPointerIndex(event, mActivePointerId);
                 if (index < 0) {
                     Log.e(TAG, "Error processing scroll; pointer index for id " +
-                            mScrollPointerId + " not found. Did any MotionEvents get skipped?");
+                            mActivePointerId + " not found. Did any MotionEvents get skipped?");
                     return false;
                 }
 
-                final int x1 = (int) (MotionEventCompat.getX(event, index) + 0.5f);
-                final int y1 = (int) (MotionEventCompat.getY(event, index) + 0.5f);
+                final int x1 = (int) (event.getX(index) + 0.5f);
+                final int y1 = (int) (event.getY(index) + 0.5f);
                 int dx1 = mLastTouchX - x1;
                 int dy1 = mLastTouchY - y1;
 
@@ -184,17 +220,16 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
                     mNestedOffsets[0] += mScrollOffset[0];
                     mNestedOffsets[1] += mScrollOffset[1];
 
-                    Log.i(TAG, "MotionEventCompat: lastY=" + dx1 + "-" + dy1);
-
+                    //Log.i(TAG, "MotionEventCompat: lastY=" + dx1 + "-" + dy1);
                 }
 
-                int y = (int) (event.getRawY());
+              /*int y = (int) (event.getRawY());
                 int dy = lastY - y;
                 lastY = y;
                 Log.i(TAG, "onTouchEvent: lastY=" + lastY);
                 Log.i(TAG, "onTouchEvent: dy=" + dy);
                 //  dy < 0 下拉， dy>0 上滑
-           /*     if (dy > 0) { // 上滑的时候才交给父类去处理
+                if (dy > 0) { // 上滑的时候才交给父类去处理
                     if (startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL) // 如果找到了支持嵌套滚动的父类
                             && dispatchNestedPreScroll(0, dy, consumed, offset)) {
                         // 父类进行了一部分滚动
@@ -211,60 +246,48 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
                 onPointerUp(event);
                 break;
             case MotionEvent.ACTION_UP:
-                mVelocityTracker.addMovement(vtev);
-                eventAddedToVelocityTracker = true;
-                mVelocityTracker.computeCurrentVelocity(1000, mMaxFlingVelocity);
-                final float xvel = canScrollHorizontally ?
-                        -VelocityTrackerCompat.getXVelocity(mVelocityTracker, mScrollPointerId) : 0;
-                final float yvel = canScrollVertically ?
-                        -VelocityTrackerCompat.getYVelocity(mVelocityTracker, mScrollPointerId) : 0;
 
-                if (!((xvel != 0 || yvel != 0) && fling((int) xvel, (int) yvel))) {
+                final VelocityTracker velocityTracker = mVelocityTracker;
+                velocityTracker.computeCurrentVelocity(1000, mMaxFlingVelocity);
+                int initialVelocity = (int) VelocityTrackerCompat.getYVelocity(velocityTracker,
+                        mActivePointerId);
+                Log.i(TAG, "onTouchEvent: ACTION_UP" + initialVelocity);
+
+                if ((Math.abs(initialVelocity) > mMinFlingVelocity)) {
+                    flingWithNestedDispatch(-initialVelocity);
                 }
                 break;
         }
-
+        if (mVelocityTracker != null) {
+            mVelocityTracker.addMovement(vtev);
+        }
         vtev.recycle();
         return true;
     }
 
-    public boolean fling(int velocityX, int velocityY) {
 
-        final boolean canScrollHorizontal = canScrollHorizontally(HORIZONTAL);
-        final boolean canScrollVertical = canScrollVertically(VERTICAL);
-
-        if (!canScrollHorizontal || Math.abs(velocityX) < mMinFlingVelocity) {
-            velocityX = 0;
+    private void flingWithNestedDispatch(int velocityY) {
+        final int scrollY = getScrollY();
+        Log.i(TAG, "onTouchEvent: ACTION_UP" + scrollY);
+        final boolean canFling = (scrollY > 0 || velocityY > 0)
+                && (scrollY < 0 || velocityY < 0);
+        if (!dispatchNestedPreFling(0, velocityY)) {
+            dispatchNestedFling(0, velocityY, canFling);
         }
-        if (!canScrollVertical || Math.abs(velocityY) < mMinFlingVelocity) {
-            velocityY = 0;
-        }
-        if (velocityX == 0 && velocityY == 0) {
-            // If we don't have any velocity, return false
-            return false;
-        }
-
-        if (!dispatchNestedPreFling(velocityX, velocityY)) {
-            final boolean canScroll = canScrollHorizontal || canScrollVertical;
-            dispatchNestedFling(velocityX, velocityY, canScroll);
-
-            if (canScroll) {
-                velocityX = Math.max(-mMaxFlingVelocity, Math.min(velocityX, mMaxFlingVelocity));
-                velocityY = Math.max(-mMaxFlingVelocity, Math.min(velocityY, mMaxFlingVelocity));
-                return true;
-            }
-        }
-        return false;
     }
 
     private void onPointerUp(MotionEvent e) {
         final int actionIndex = MotionEventCompat.getActionIndex(e);
-        if (MotionEventCompat.getPointerId(e, actionIndex) == mScrollPointerId) {
+        if (e.getPointerId(actionIndex) == mActivePointerId) {
             // Pick a new pointer to pick up the slack.
             final int newIndex = actionIndex == 0 ? 1 : 0;
-            mScrollPointerId = MotionEventCompat.getPointerId(e, newIndex);
-            mInitialTouchX = mLastTouchX = (int) (MotionEventCompat.getX(e, newIndex) + 0.5f);
-            mInitialTouchY = mLastTouchY = (int) (MotionEventCompat.getY(e, newIndex) + 0.5f);
+            mActivePointerId = e.getPointerId(newIndex);
+            mInitialTouchX = mLastTouchX = (int) (e.getX(newIndex) + 0.5f);
+            mInitialTouchY = mLastTouchY = (int) (e.getY(newIndex) + 0.5f);
+
+            if (mVelocityTracker != null) {
+                mVelocityTracker.clear();
+            }
         }
     }
 
@@ -278,9 +301,6 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
     public boolean canScrollHorizontally(int direction) {
         return false;
     }
-
-
-
 
 
     private NestedScrollingChildHelper getScrollingChildHelper() {
@@ -341,4 +361,10 @@ public class NestedLinearLayout extends LinearLayout implements NestedScrollingC
                 velocityY);
     }
 
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+    }
 }
+
+

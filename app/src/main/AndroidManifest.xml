@@ -37,7 +37,7 @@
         <activity android:name=".ui.customview.CustomCameraAndMatrixActivity" />
         <activity android:name=".ui.customviewgroup.FirstCustomViewGroupActivity" />
         <activity android:name=".ui.customviewgroup.FlowLayoutActivity" />
-        <activity android:name=".ui.event.EventActivity" />
+        <activity android:name=".ui.event.EventAllActivity" />
         <activity android:name=".ui.event.TestEvent1Activity" />
         <activity android:name=".ui.event.ZoomImageActivity" />
         <activity android:name=".ui.matrial.AppBarLayout_CollapsingActivity" />
@@ -62,7 +62,8 @@
 
         <service android:name=".service.MyService" />
 
-        <activity android:name=".ui.matrial.WeiboFindPageActivity"></activity>
+        <activity android:name=".ui.matrial.WeiboFindPageActivity" />
+        <activity android:name=".ui.matrial.MiFirstPageActivity"></activity>
     </application>
 
 </manifest>

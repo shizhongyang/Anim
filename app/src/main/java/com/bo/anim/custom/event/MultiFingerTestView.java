@@ -1,6 +1,8 @@
 package com.bo.anim.custom.event;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,17 +16,28 @@ public class MultiFingerTestView extends View {
 
     String TAG = "shi";
 
+    private Paint mDeafultPaint ;
 
     public MultiFingerTestView(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public MultiFingerTestView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,0);
     }
 
     public MultiFingerTestView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        init();
+    }
+
+    private void init() {
+        mDeafultPaint = new Paint();
+        mDeafultPaint.setAntiAlias(true);
+        mDeafultPaint.setTextAlign(Paint.Align.CENTER);
+        mDeafultPaint.setTextSize(30);
+        mDeafultPaint.setColor(0xff000000);
     }
 
 
@@ -72,9 +85,21 @@ public class MultiFingerTestView extends View {
     }
 
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        drawtext(canvas);
+    }
 
-
-
-
+    private void drawtext(Canvas canvas) {
+        canvas.save();
+        canvas.translate(getWidth()/2, getHeight()/2);
+        canvas.drawText("多指触摸测试", 0, 0, mDeafultPaint);
+        canvas.restore();
+    }
 }

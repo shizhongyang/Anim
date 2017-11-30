@@ -20,7 +20,7 @@ import java.lang.ref.WeakReference;
  * Created by TT on 2017-11-28.
  */
 
-public class HeaderPageBehavior extends ViewOffsetBehavior {
+public class WeiboHeaderPageBehavior extends ViewOffsetBehavior {
 
     private static final String TAG = "HeaderPageBehavior";
     private static final int STATE_OPENED = 0;
@@ -41,11 +41,11 @@ public class HeaderPageBehavior extends ViewOffsetBehavior {
     private WeakReference<View> mChild;
 
 
-    public HeaderPageBehavior() {
+    public WeiboHeaderPageBehavior() {
         init();
     }
 
-    public HeaderPageBehavior(Context context, AttributeSet attrs) {
+    public WeiboHeaderPageBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -59,7 +59,7 @@ public class HeaderPageBehavior extends ViewOffsetBehavior {
         boolean closed = isClosed();
         Log.i(TAG, "onInterceptTouchEvent: closed=" + closed);
         if (ev.getAction() == MotionEvent.ACTION_UP && !closed) {
-            handleActionUp(parent, child);
+          //  handleActionUp(parent, child);
         }
         return super.onInterceptTouchEvent(parent, child, ev);
 
@@ -83,20 +83,23 @@ public class HeaderPageBehavior extends ViewOffsetBehavior {
         return ((nestedScrollAxes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0 && canScroll && !isClosed(child));
     }
 
-
+    //child是使用behavior的控件
     @Override
     public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target,
                                   int dx, int dy, int[] consumed) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
         if (!isClosed) {
             //dy>0 scroll up;dy<0,scroll down
-            Log.i(TAG, "onNestedPreScroll: dy=" + dy);
+            Log.i(TAG, "onNestedPreScroll: dy=" + dy+"getTranslationY"+child.getTranslationY());
+
             float halfOfDis = dy;
             //不能滑动了
             if (!canScroll(child, halfOfDis)) {
                 child.setTranslationY(halfOfDis > 0 ? getHeaderOffsetRange() : 0);
             } else {
-                child.setTranslationY(child.getTranslationY() - halfOfDis);
+                //移动的是图片
+                ViewCompat.setTranslationY(child,child.getTranslationY() - halfOfDis);
+                //child.setTranslationY(child.getTranslationY() - halfOfDis);
             }
             //consumed all scroll behavior after we started Nested Scrolling
             consumed[1] = dy;
@@ -111,17 +114,26 @@ public class HeaderPageBehavior extends ViewOffsetBehavior {
     public boolean onNestedPreFling(CoordinatorLayout coordinatorLayout, View child, View target,
                                     float velocityX, float velocityY) {
         // consumed the flinging behavior until Closed
-
         boolean coumsed = !isClosed(child);
         Log.i(TAG, "onTouch onNestedPreFling: coumsed=" + coumsed);
+        if (coumsed){
+            // 快速滑动的惯性移动（松开手指后还会有滑动效果）
+             // ((NestedScrollView)child).fling((int) velocityY);
+            float curTranslationY = ViewCompat.getTranslationY(child);
+
+            mOverScroller.fling(0,(int)curTranslationY,0,(int)velocityY,
+                    0,0,0,100);
+        }
+
         return coumsed;
     }
+
+
 
     @Override
     public boolean onNestedFling(CoordinatorLayout coordinatorLayout, View child, View target,
                                  float velocityX, float velocityY, boolean consumed) {
         Log.i(TAG, "onTouch onNestedFling: velocityY=" + velocityY);
-
 
         return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY,
                 consumed);
@@ -145,7 +157,6 @@ public class HeaderPageBehavior extends ViewOffsetBehavior {
     // headerOffsetRange到达了，返回 false，
     // 否则返回true。注意 TransLationY 是负数。
     private boolean canScroll(View child, float pendingDy) {
-
         int pendingTranslationY = (int) (child.getTranslationY() - pendingDy);
         int headerOffsetRange = getHeaderOffsetRange();
         return pendingTranslationY >= headerOffsetRange && pendingTranslationY <= 0;

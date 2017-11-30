@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.bo.anim.R;
 import com.bo.anim.base.BaseFragmentAdapter;
-import com.bo.anim.md.weibo.HeaderPageBehavior;
 import com.bo.anim.md.weibo.OnPagerStateListener;
+import com.bo.anim.md.weibo.WeiboHeaderPageBehavior;
 import com.bo.anim.ui.frgment.BlankFragment;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class WeiboFindPageActivity extends AppCompatActivity implements OnPagerS
             "主页", "微博", "相册"
     };
     private View mHeaderView;
-    private HeaderPageBehavior mHeaderPagerBehavior;
+    private WeiboHeaderPageBehavior mHeaderPagerBehavior;
     private View mIvBack;
 
     @Override
@@ -44,7 +44,7 @@ public class WeiboFindPageActivity extends AppCompatActivity implements OnPagerS
         setupViewPager();
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams)
                 mHeaderView.getLayoutParams();
-        mHeaderPagerBehavior = (HeaderPageBehavior) layoutParams.getBehavior();
+        mHeaderPagerBehavior = (WeiboHeaderPageBehavior) layoutParams.getBehavior();
         mHeaderPagerBehavior.setmPagerStateListener(this);
 
     }

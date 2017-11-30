@@ -2,6 +2,7 @@ package com.bo.anim.ui.event;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.bo.anim.R;
 import com.bo.anim.custom.event.MyButton;
@@ -26,7 +27,7 @@ public class TestEvent1Activity extends Activity {
             }
         });*/
 
-/*
+
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +35,7 @@ public class TestEvent1Activity extends Activity {
             }
         });
 
-        btn1.setOnLongClickListener(new View.OnLongClickListener() {
+     /*   btn1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return true;

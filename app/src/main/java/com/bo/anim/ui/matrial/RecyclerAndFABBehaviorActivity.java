@@ -17,8 +17,8 @@ import android.widget.Toast;
 import com.bo.anim.R;
 import com.bo.anim.adapter.MyRecyclerAdapter;
 import com.bo.anim.md.recycler.DividerItemDecorationTest;
-import com.bo.anim.md.recycler.scroll.FABAction;
-import com.bo.anim.md.recycler.scroll.FABScrollListener;
+import com.bo.anim.md.recycler.scrollfab.FABAction;
+import com.bo.anim.md.recycler.scrollfab.FABScrollListener;
 
 import java.util.ArrayList;
 

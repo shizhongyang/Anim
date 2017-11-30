@@ -1,4 +1,4 @@
-package com.bo.anim.md.recycler.scroll;
+package com.bo.anim.md.recycler.scrollfab;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

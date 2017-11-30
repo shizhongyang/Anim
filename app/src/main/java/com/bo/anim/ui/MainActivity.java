@@ -15,7 +15,7 @@ import com.bo.anim.R;
 import com.bo.anim.ui.customview.CustomContainsActivity;
 import com.bo.anim.ui.customviewgroup.ViewGroupContainerActivity;
 import com.bo.anim.ui.db.DBTestActivity;
-import com.bo.anim.ui.event.EventActivity;
+import com.bo.anim.ui.event.EventAllActivity;
 import com.bo.anim.ui.matrial.MDContainerActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn8).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,EventActivity.class));
+                startActivity(new Intent(MainActivity.this,EventAllActivity.class));
             }
 
         });

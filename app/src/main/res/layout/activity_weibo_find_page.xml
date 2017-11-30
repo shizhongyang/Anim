@@ -10,15 +10,16 @@
         android:id="@+id/id_weibo_header"
         android:layout_width="match_parent"
         app:layout_behavior="@string/behavior_header_page"
-        android:layout_height="@dimen/two_hundred_dp">
+        android:layout_height="@dimen/header_page_height_dp">
 
         <com.bo.anim.md.weibo.widget.NestedLinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/linear"
             android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/main.backdrop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/header_page_height_dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/timg" />
         </com.bo.anim.md.weibo.widget.NestedLinearLayout>

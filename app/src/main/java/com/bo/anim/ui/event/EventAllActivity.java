@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.bo.anim.R;
 
-public class EventActivity extends AppCompatActivity {
+public class EventAllActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

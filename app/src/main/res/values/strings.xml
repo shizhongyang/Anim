@@ -20,7 +20,8 @@
     <string name="phone_login">手机登录</string>
     <string name="phone_reg">注册帐号</string>
 
-    <string name="behavior_header_page">com.bo.anim.md.weibo.HeaderPageBehavior</string>
+    <string name="behavior_uc_page">com.bo.anim.md.weibo.HeaderPageBehavior</string>
+    <string name="behavior_header_page">com.bo.anim.md.weibo.WeiboHeaderPageBehavior</string>
     <string name="behavior_weibo_content">com.bo.anim.md.weibo.ContentBehavior</string>
 
 
