@@ -74,9 +74,8 @@
         android:background="@mipmap/ic_launcher"
         android:layout_height="wrap_content" />
     <include
-        android:layout_height="100dp"
-        android:visibility="gone"
-        android:layout_below="@+id/btn9"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn10"
         android:layout_width="match_parent"
-        layout="@layout/test_contriant_layout"/>
+        layout="@layout/test"/>
 </RelativeLayout>

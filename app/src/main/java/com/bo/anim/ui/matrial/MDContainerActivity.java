@@ -49,6 +49,9 @@ public class MDContainerActivity extends AppCompatActivity {
             case R.id.btn10:
                 intent.setClass(this, WeiboFindPageActivity.class);
                 break;
+            case R.id.btn11:
+                intent.setClass(this, AppBarLayoutActivity.class);
+                break;
         }
         startActivity(intent);
     }

@@ -16,7 +16,7 @@
         注意AppBarLayout的兄弟节点（或兄弟节点的子view）一定要是可以滚动的View/ViewGroup，
         如：NestedScrollView，RecycleView；
      -->
-    <android.support.design.widget.AppBarLayout
+    <com.bo.anim.md.weibo.android.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -49,12 +49,12 @@
         直到ScrollView滑动到顶部不再滑动时，View再继续往下滑动，直到滑到View的顶部结束。
         -->
 
-    </android.support.design.widget.AppBarLayout>
+    </com.bo.anim.md.weibo.android.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/behavior_appbar_content">
         <!-- Your scrolling content -->
         <TextView
             android:layout_width="match_parent"

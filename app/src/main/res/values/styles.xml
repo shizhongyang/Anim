@@ -13,4 +13,7 @@
         <attr name="darkColor" format="color" />
         <attr name="textSize" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="MyScrollingViewBehavior_Layout">
+        <attr format="dimension" name="behavior_overlapTop"/></declare-styleable>
 </resources>

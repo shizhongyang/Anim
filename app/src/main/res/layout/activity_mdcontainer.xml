@@ -7,81 +7,90 @@
     tools:context="com.bo.anim.ui.matrial.MDContainerActivity">
 
     <Button
+        android:id="@+id/btn1"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        android:text="AppBarLayout"
-        android:id="@+id/btn1" />
+        android:text="AppBarLayout" />
+
     <Button
+        android:id="@+id/btn2"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn1"
         android:text="testrecycler"
-        android:id="@+id/btn2" />
+        app:layout_constraintTop_toBottomOf="@id/btn1" />
+
     <Button
+        android:id="@+id/btn3"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn2"
         android:text="stickyrecycler"
-        android:id="@+id/btn3" />
+        app:layout_constraintTop_toBottomOf="@id/btn2" />
+
     <Button
+        android:id="@+id/btn4"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn3"
         android:text="addheader"
-        android:id="@+id/btn4" />
+        app:layout_constraintTop_toBottomOf="@id/btn3" />
 
 
     <Button
+        android:id="@+id/btn5"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn4"
         android:text="addheader"
-        android:id="@+id/btn5" />
+        app:layout_constraintTop_toBottomOf="@id/btn4" />
+
     <Button
+        android:id="@+id/btn6"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn5"
         android:text="ItemTouch"
-        android:id="@+id/btn6" />
+        app:layout_constraintTop_toBottomOf="@id/btn5" />
+
     <Button
+        android:id="@+id/btn7"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn6"
         android:text="AppBarLayout_CollapsingActivity"
-        android:id="@+id/btn7" />
+        app:layout_constraintTop_toBottomOf="@id/btn6" />
+
     <Button
+        android:id="@+id/btn8"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn7"
         android:text="AppBarLayout_ViewpagerActivity"
-        android:id="@+id/btn8" />
+        app:layout_constraintTop_toBottomOf="@id/btn7" />
+
     <Button
+        android:id="@+id/btn9"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn8"
         android:text="RevealEffectActivity"
-        android:id="@+id/btn9" />
+        app:layout_constraintTop_toBottomOf="@id/btn11" />
+
     <Button
+        android:id="@+id/btn10"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn9"
         android:text="weibo"
-        android:id="@+id/btn10" />
+        app:layout_constraintTop_toBottomOf="@id/btn9" />
+
     <Button
+        android:id="@+id/btn11"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:onClick="click"
-        app:layout_constraintTop_toBottomOf="@id/btn10"
-        android:text=""
-        android:id="@+id/btn11" />
+        android:text="Appbarlayout"
+        app:layout_constraintTop_toBottomOf="@id/btn8" />
 </android.support.constraint.ConstraintLayout>

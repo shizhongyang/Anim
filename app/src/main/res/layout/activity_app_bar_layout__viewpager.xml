@@ -14,11 +14,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:title="动脑学院"
-            >
+            app:title="动脑学院">
         </android.support.v7.widget.Toolbar>
+
+        <!--scroll|enterAlways|enterAlwaysCollapsed|exitUntilCollapsed|snap -->
         <android.support.design.widget.TabLayout
-            app:layout_scrollFlags="scroll|enterAlways"
             android:id="@+id/tablayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
