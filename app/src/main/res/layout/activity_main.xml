@@ -1,81 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.bo.anim.ui.MainActivity">
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.bo.anim.ui.MainActivity">
 
-    <Button
-        android:id="@+id/btn1"
-        android:text="自定义插值器"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_below="@+id/btn1"
-        android:id="@+id/btn2"
-        android:layout_width="match_parent"
-        android:text="ValueAnimator的ofObject()"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_below="@+id/btn2"
-        android:id="@+id/btn3"
-        android:layout_width="match_parent"
-        android:text="ObjectAnimator"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_below="@+id/btn3"
-        android:id="@+id/btn4"
-        android:layout_width="match_parent"
-        android:text="AnimatorSet"
-        android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn1"
+            android:text="自定义插值器"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/btn1"
+            android:id="@+id/btn2"
+            android:layout_width="match_parent"
+            android:text="ValueAnimator的ofObject()"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/btn2"
+            android:id="@+id/btn3"
+            android:layout_width="match_parent"
+            android:text="ObjectAnimator"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/btn3"
+            android:id="@+id/btn4"
+            android:layout_width="match_parent"
+            android:text="AnimatorSet"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:layout_below="@+id/btn4"
-        android:id="@+id/btn5"
-        android:layout_width="match_parent"
-        android:text="TestGlide"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_below="@+id/btn5"
-        android:id="@+id/btn6"
-        android:layout_width="match_parent"
-        android:text="CustomView"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_below="@+id/btn6"
-        android:id="@+id/btn7"
-        android:layout_width="match_parent"
-        android:text="CustomViewGroup"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_below="@+id/btn7"
-        android:id="@+id/btn8"
-        android:layout_width="match_parent"
-        android:text="Event"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_below="@+id/btn8"
-        android:id="@+id/btn9"
-        android:layout_width="match_parent"
-        android:text="material design"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_below="@+id/btn9"
-        android:id="@+id/btn10"
-        android:layout_width="match_parent"
-        android:text="db"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@mipmap/ic_launcher"
-        android:layout_height="wrap_content" />
-    <include
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn10"
-        android:layout_width="match_parent"
-        layout="@layout/test"/>
-</RelativeLayout>
+        <Button
+            android:layout_below="@+id/btn4"
+            android:id="@+id/btn5"
+            android:layout_width="match_parent"
+            android:text="TestGlide"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/btn5"
+            android:id="@+id/btn6"
+            android:layout_width="match_parent"
+            android:text="CustomView"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/btn6"
+            android:id="@+id/btn7"
+            android:layout_width="match_parent"
+            android:text="CustomViewGroup"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/btn7"
+            android:id="@+id/btn8"
+            android:layout_width="match_parent"
+            android:text="Event"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/btn8"
+            android:id="@+id/btn9"
+            android:layout_width="match_parent"
+            android:text="material design"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/btn9"
+            android:id="@+id/btn10"
+            android:layout_width="match_parent"
+            android:text="db"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@+id/btn10"
+            android:id="@+id/btn11"
+            android:layout_width="match_parent"
+            android:text="@string/bluetooth"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/img"
+            android:layout_below="@+id/in"
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/ic_launcher"
+            android:layout_height="wrap_content" />
+        <include
+            android:id="@+id/in"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn11"
+            android:layout_width="match_parent"
+            layout="@layout/test"/>
+    </RelativeLayout>
+</ScrollView>
+

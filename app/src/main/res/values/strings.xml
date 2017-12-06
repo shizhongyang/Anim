@@ -26,4 +26,5 @@
     <string name="behavior_appbar_content" translatable="false">com.bo.anim.md.weibo.android.AppBarLayout$ScrollingViewBehavior</string>
 
 
+    <string name="bluetooth">蓝牙</string>
 </resources>

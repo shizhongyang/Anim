@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bo.anim.R;
+import com.bo.anim.bluetooth.BlueToothActivity;
 import com.bo.anim.ui.customview.CustomContainsActivity;
 import com.bo.anim.ui.customviewgroup.ViewGroupContainerActivity;
 import com.bo.anim.ui.db.DBTestActivity;
@@ -109,6 +110,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,DBTestActivity.class));
+            }
+
+        });
+        findViewById(R.id.btn11).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,BlueToothActivity.class));
             }
 
         });
