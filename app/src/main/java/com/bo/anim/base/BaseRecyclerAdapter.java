@@ -34,9 +34,7 @@ public abstract class BaseRecyclerAdapter<T> extends DefaultAdapter<T> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
-        BaseRecyclerHolder holder = new BaseRecyclerHolder(LayoutInflater.from
-                (mContext).
+        BaseRecyclerHolder holder = new BaseRecyclerHolder(LayoutInflater.from(mContext).
                 inflate(mItemLayoutId, parent, false));
         setListener(parent, holder, viewType);
         return holder;

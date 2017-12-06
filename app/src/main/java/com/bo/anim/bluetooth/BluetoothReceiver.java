@@ -8,6 +8,7 @@ import android.util.Log;
 
 /**
  * Created by TT on 2017-12-04.
+ * {}
  */
 
 public class BluetoothReceiver extends BroadcastReceiver {

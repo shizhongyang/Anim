@@ -16,26 +16,29 @@ public class CustomContainsActivity extends AppCompatActivity {
     }
 
 
-    public void click(View view){
+    public void click(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.btn1:
-                intent.setClass(this,CustomViewActivity.class);
+                intent.setClass(this, CustomViewActivity.class);
                 break;
             case R.id.btn2:
-                intent.setClass(this,CustomReaBookActivity.class);
+                intent.setClass(this, CustomReaBookActivity.class);
                 break;
             case R.id.btn3:
-                intent.setClass(this,CustomDoughnutProgressActivity.class);
+                intent.setClass(this, CustomDoughnutProgressActivity.class);
                 break;
             case R.id.btn4:
-                intent.setClass(this,CustomArcActivity.class);
+                intent.setClass(this, CustomArcActivity.class);
                 break;
             case R.id.btn5:
-                intent.setClass(this,CustomCameraAndMatrixActivity.class);
+                intent.setClass(this, CustomCameraAndMatrixActivity.class);
                 break;
             case R.id.btn6:
-                intent.setClass(this,MiClockActivity.class);
+                intent.setClass(this, MiClockActivity.class);
+                break;
+            case R.id.btn7:
+                intent.setClass(this, ZhiHuActivity.class);
                 break;
         }
         startActivity(intent);

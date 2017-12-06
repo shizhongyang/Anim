@@ -8,19 +8,17 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
-    <!--========================蓝牙权限======================-->
+    <!-- ========================蓝牙权限====================== -->
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <!-- 似乎android M需要位置权限才能扫描 -->
-    <uses-permission
-        android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!--========================蓝牙权限======================-->
-
+    <!-- ========================蓝牙权限====================== -->
     <application
         android:name=".ui.MyApplication"
         android:allowBackup="true"
@@ -29,16 +27,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--========================广播注册======================-->
+        <!-- ========================广播注册====================== -->
 
         <receiver android:name=".bluetooth.BluetoothReceiver">
             <intent-filter android:priority="1000">
-                <action android:name="android.bluetooth.device.action.PAIRING_REQUEST"/>
+                <action android:name="android.bluetooth.device.action.PAIRING_REQUEST" />
                 <action android:name="android.bluetooth.device.action.FOUND" />
             </intent-filter>
         </receiver>
-        <!--========================广播注册======================-->
-
+        <!-- ========================广播注册====================== -->
 
         <activity android:name=".ui.MainActivity">
             <intent-filter>
@@ -90,7 +87,8 @@
 
         <activity android:name=".ui.matrial.WeiboFindPageActivity" />
         <activity android:name=".ui.matrial.MiFirstPageActivity" />
-        <activity android:name=".bluetooth.BlueToothActivity"></activity>
+        <activity android:name=".bluetooth.BlueToothActivity" />
+        <activity android:name=".ui.customview.ZhiHuActivity"></activity>
     </application>
 
 </manifest>
