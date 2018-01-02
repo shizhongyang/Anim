@@ -88,7 +88,8 @@
         <activity android:name=".ui.matrial.WeiboFindPageActivity" />
         <activity android:name=".ui.matrial.MiFirstPageActivity" />
         <activity android:name=".bluetooth.BlueToothActivity" />
-        <activity android:name=".ui.customview.ZhiHuActivity"></activity>
+        <activity android:name=".ui.customview.ZhiHuActivity" />
+        <activity android:name=".bluetooth.Bluetooth4Activity"></activity>
     </application>
 
 </manifest>

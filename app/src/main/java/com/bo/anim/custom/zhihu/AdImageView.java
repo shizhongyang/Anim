@@ -9,6 +9,7 @@ import android.util.Log;
 
 /**
  * Created by TT on 2017-12-06.
+ * {shixin}
  */
 
 public class AdImageView extends AppCompatImageView {
