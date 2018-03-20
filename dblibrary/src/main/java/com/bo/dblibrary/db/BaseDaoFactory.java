@@ -43,6 +43,7 @@ public class BaseDaoFactory {
 
     private void openDatabase() {
         this.sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase(sqliteDatabasePath, null);
+
     }
 
     public static BaseDaoFactory getInstance() {
